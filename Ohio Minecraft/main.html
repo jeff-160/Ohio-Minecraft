@@ -1,0 +1,44 @@
+<title>Ohio Minecraft</title>
+
+<style>
+	*{
+		box-sizing: border-box;
+	}
+</style>
+
+<!-- lib -->
+<script src="lib/babylon.js"></script>
+<script src="lib/perlin.js"></script>
+
+<!-- scripts -->
+<script src="scripts/settings.js"></script>
+<script src="scripts/init.js"></script>
+<script src="scripts/blocktypes.js"></script>
+<script src="scripts/block.js"></script>
+<script src="scripts/world.js"></script>
+
+<script>
+	
+	window.onload = ()=> CreateGame()
+
+	function Main(){
+		Scene.render()
+		crosshair.style.display = Engine.isPointerLock ? "block":"none"
+	}
+
+	function Start(){
+		for (var i=0;i<Settings.WorldBreadth;i++){
+			CreateChunk({
+				x: 0,
+				y: 0,
+				z: i*Settings.BlockWidth,
+			}, "z")
+		}
+	}
+
+	function FrustumCulling(){
+		for (let mesh of Scene.meshes)
+			mesh.setEnabled(Camera.isInFrustum(mesh))
+	}
+
+</script>
